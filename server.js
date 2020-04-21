@@ -122,15 +122,19 @@ app.get('/api/owners/:id/pets', (req, res, next) => {
 
 
 // GET /api/owners/:id/pets/:petId
-// How do I setup API get requests with multiple params?H ere I need id and petsId.
+// How do I setup API get requests with multiple params? Here I need id and petsId.
 app.get('/api/owners/:id/pets/:petId', (req, res, next) => {
     let id = req.params.id
-    let petId = req.params.petId
+    let petId = req.params.petId 
     
     let foundOwner = owners.find(function (owner) {
+        // console.log(owner.pets); 
         return owner.id == id; 
     })
-    res.send(foundOwner); 
+    let foundPet = foundOwner.pets.find(function(pet) {
+        return pet.id == petId;
+    })
+    res.send(foundPet);
 })
 
 // POST /api/owners/:id/pets
